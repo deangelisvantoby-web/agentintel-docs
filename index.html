@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AgentIntel API documentation for structured company intelligence.">
+  <title>AgentIntel — Developer Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090e17;
+      --panel: #111a29;
+      --border: #263448;
+      --text: #f0f5fc;
+      --muted: #9baac0;
+      --accent: #56e5b4;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.7 system-ui, -apple-system, sans-serif;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #090e17f2;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar {
+      max-width: 1180px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo { font-size: 21px; font-weight: 800; letter-spacing: -.6px; }
+    .logo span { color: var(--accent); }
+    nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; }
+    .layout {
+      max-width: 1180px;
+      margin: auto;
+      padding: 52px 24px 100px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 56px;
+    }
+    aside {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      display: grid;
+      gap: 13px;
+      font-size: 14px;
+    }
+    aside a { color: var(--muted); }
+    aside a:hover { color: var(--accent); }
+    section { margin-bottom: 64px; scroll-margin-top: 100px; }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 2px; }
+    h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.12; letter-spacing: -2px; margin: 18px 0; }
+    h2 { font-size: 27px; margin-bottom: 12px; letter-spacing: -.7px; }
+    h3 { font-size: 18px; margin-top: 28px; }
+    p, li { color: var(--muted); }
+    .lead { font-size: 19px; max-width: 700px; }
+    .pill {
+      display: inline-block;
+      color: var(--accent);
+      border: 1px solid #327e69;
+      background: #10372c;
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .card strong { display: block; margin-bottom: 6px; }
+    .card p { margin: 0; font-size: 14px; }
+    pre {
+      background: #060b13;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    code { color: #b6f5dc; }
+    p code, li code {
+      background: #1b2a39;
+      padding: 2px 6px;
+      border-radius: 5px;
+      overflow-wrap: anywhere;
+    }
+    .endpoint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .method {
+      color: #071a12;
+      background: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 5px;
+    }
+    .note {
+      border-left: 3px solid var(--accent);
+      background: #10251f;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      color: #c6e9db;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    th, td { text-align: left; padding: 13px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text); }
+    td { color: var(--muted); }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media(max-width: 850px) {
+      .layout { display: block; padding-top: 35px; }
+      aside { position: static; display: flex; flex-wrap: wrap; margin-bottom: 42px; }
+      .cards { grid-template-columns: 1fr; }
+      nav { gap: 10px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="logo">AGENT<span>INTEL</span> <small style="font-size:12px;color:#9baac0">/ DOCS</small></div>
+    <nav>
+      <a href="#overview">Overview</a>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#reference">API Reference</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <aside>
+    <strong>DEVELOPER GUIDE</strong>
+    <a href="#overview">Introduction</a>
+    <a href="#features">Capabilities</a>
+    <a href="#quickstart">Getting started</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#reference">Endpoints</a>
+    <a href="#response">Response structure</a>
+    <a href="#errors">Errors</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#limitations">Limitations</a>
+  </aside>
+
+  <main>
+    <section id="overview">
+      <div class="eyebrow">THE AGENTINTEL API</div>
+      <h1>Company intelligence.<br><span style="color:#56e5b4">Built for AI agents.</span></h1>
+      <p class="lead">Turn supported public business websites into structured JSON containing company descriptions, publicly listed contact information, social profiles, and evidence metadata.</p>
+      <span class="pill">REST API · JSON · API KEY AUTHENTICATION</span>
+      <p>AgentIntel is currently in a restricted-access demonstration phase. API access is not yet self-service.</p>
+    </section>
+
+    <section id="features">
+      <h2>What AgentIntel delivers</h2>
+      <div class="cards">
+        <div class="card"><strong>Company profiles</strong><p>Website titles, descriptions, and relevant public page content.</p></div>
+        <div class="card"><strong>Public contacts</strong><p>Published email addresses and phone numbers with supporting sources.</p></div>
+        <div class="card"><strong>Social discovery</strong><p>Links to social profiles found on company websites.</p></div>
+        <div class="card"><strong>Evidence metadata</strong><p>Confidence signals and verification limitations to help review results.</p></div>
+        <div class="card"><strong>Agent-ready JSON</strong><p>Structured output designed for automated workflows.</p></div>
+        <div class="card"><strong>Controlled access</strong><p>API-key authentication, request limits, and usage logging.</p></div>
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <h2>Getting started</h2>
+      <p>Once you've been issued an API key, send a GET request to the analysis endpoint with a supported website URL.</p>
+      <div class="endpoint"><span class="method">GET</span><code>/analyze?url=...</code></div>
+      <pre><code>curl -H "X-API-Key: YOUR_API_KEY" \
+"https://agentintel-api.deangelisvantoby.workers.dev/analyze?url=https%3A%2F%2Fwww.briskcoffee.com%2F"</code></pre>
+      <div class="note">Replace YOUR_API_KEY with your issued key. Never put an API key in a URL or expose it in public frontend code.</div>
+    </section>
+
+    <section id="authentication">
+      <h2>Authentication</h2>
+      <p>The analysis endpoint requires an API key sent in the <code>X-API-Key</code> request header.</p>
+      <pre><code>X-API-Key: YOUR_API_KEY</code></pre>
+      <p>Requests with missing, invalid, or revoked keys are rejected. Keep your key in a secure server-side environment variable.</p>
+    </section>
+
+    <section id="reference">
+      <h2>API reference</h2>
+      <h3>Health check</h3>
+      <div class="endpoint"><span class="method">GET</span><code>/health</code></div>
+      <p>Returns the service's health status and version information. No API key required.</p>
+      <pre><code>curl "https://agentintel-api.deangelisvantoby.workers.dev/health"</code></pre>
+
+      <h3>Analyze a company website</h3>
+      <div class="endpoint"><span class="method">GET</span><code>/analyze</code></div>
+      <table>
+        <tr><th>Parameter</th><th>Required</th><th>Description</th></tr>
+        <tr><td><code>url</code></td><td>Yes</td><td>A supported HTTPS website homepage.</td></tr>
+      </table>
+      <p>Only approved website hosts are currently supported. The service is not an unrestricted web crawler.</p>
+    </section>
+
+    <section id="response">
+      <h2>Response structure</h2>
+      <p>Successful responses contain structured company information and analysis metadata. The following is an illustrative excerpt, not a complete live response schema.</p>
+      <pre><code>{
+  "analysis": {
+    "pages_fetched": 2,
+    "incomplete": false,
+    "warnings": [],
+    "robots_txt_checked": true
+  },
+  "quality": {
+    "score": 100,
+    "maximum_score": 100,
+    "note": "Coverage score only; not factual accuracy or independent verification."
+  }
+}</code></pre>
+      <p>Additional response fields include extracted company information, public contacts, social links, and supporting verification details. Field availability depends on the website.</p>
+    </section>
+
+    <section id="errors">
+      <h2>Errors and rate limits</h2>
+      <table>
+        <tr><th>Status</th><th>Meaning</th></tr>
+        <tr><td>200</td><td>Request completed successfully.</td></tr>
+        <tr><td>401</td><td>API key missing, invalid, or revoked.</td></tr>
+        <tr><td>429</td><td>Request rate limit exceeded, when enforced.</td></tr>
+        <tr><td>5xx</td><td>Service or dependency error.</td></tr>
+      </table>
+      <p>Other validation errors may occur for unsupported websites, invalid URLs, or unavailable pages. Rate limits may change as the service evolves.</p>
+    </section>
+
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <div class="card">
+        <div class="eyebrow">PLANNED USAGE-BASED PRICING</div>
+        <h1 style="font-size:44px;margin:12px 0">$0.01 <span style="font-size:17px;color:#9baac0">/ successful analysis</span></h1>
+        <p>Planned payment method: USDC on Base through x402.</p>
+        <span class="pill">PAYMENTS NOT YET LIVE</span>
+      </div>
+      <p>Pricing and payment integration are subject to launch testing. Usage tracking is not proof that payment has been collected.</p>
+    </section>
+
+    <section id="limitations">
+      <h2>Data quality and limitations</h2>
+      <p>AgentIntel analyzes public information available from supported websites. Extracted contact information is not independently verified for ownership, deliverability, or accuracy.</p>
+      <p>Quality scores measure coverage of selected fields, not the factual correctness of those fields. Review important information before using it in consequential workflows.</p>
+      <p>Respect applicable privacy, website-access, and outreach requirements when using extracted information.</p>
+    </section>
+  </main>
+</div>
+
+<footer>© 2026 AgentIntel · Developer Documentation · Restricted-access demonstration</footer>
+</body>
+</html>
